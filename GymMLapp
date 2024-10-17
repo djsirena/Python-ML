@@ -1,0 +1,86 @@
+#Gym ML learning app
+import tkinter as tk
+import customtkinter as ck
+
+import pandas as pd
+import numpy as np
+import pickle
+
+import mediapipe as mp
+import cv2
+from PIL import Image, ImageTk
+
+from landmarks import landmark
+
+window = tk.Tk()
+window.geometry(480x700)
+window.title("SwoleGymGirl")
+ck.set_appearance_mode("dark")
+
+classLabel = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black")
+classlabel.place(x=160, y=1)
+classLabel.configure(text='STAGE')
+counterLabel = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black")
+counterlabel.place(x=10, y=1)
+counterLabel.configure(text='REPS')
+probLabel = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black")
+problabel.place(x=300, y=1)
+probLabel.configure(text='PROB')
+classBox = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black", fg_color="blue")
+classBox.place(x=10, y=1)
+classBox.configure(text='0')
+counterBox = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black")
+counterBox.place(x=160, y=41)
+counterBox.configure(text='0')
+probBox = ck.CtkLabel(window, height=40, width=120, text_font("Arial", 20), text_color="black")
+probBox.place(x=300, y=41)
+probBox.configure(text='0')
+
+def reset_counter():
+    global counter
+    countr = 0
+
+button = ck.CtkButton(window, text='RESET', command=reset_counter, height=40, width=120, text_font("Arial", 20), text_color="black")
+button.place(x=10, y=600)
+
+frame = tk.Frame(height=480, width=480)
+frame.place(x=10, y=90)
+lmain = tk.Label(frame)
+lmain.place(x=0, y=0)
+
+mp_drawing = mp.solutions.drawing_untils
+mp_pose = mp.solutions.pose
+pose = mp_pose(min_tracking_confidence=0.5, min_dectection_confidence=0.5)
+
+with open('deadlift.pkl', 'rb') as f:
+    model = pickle.load(f)
+cap = cv2.VideoCapture(3)
+current_stage = ''
+counter = 0
+bodylang_prob = np.array([0,0])
+bodyland_class = ''
+
+def detect():
+    global current_stage
+    global counter
+    global bodyland_class
+    global bodylang_prob
+
+    ret, frame = cap.read()
+    image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = pose.process(image)
+    mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS, mp_drawing.DrawingSpec
+    (color= 0,0,255), thickness=2, circle_radius = 2),
+    (color= 0,255,255), thickness = 2, circle_radius = 2),
+
+try:
+    pass
+except Exception as e:
+    pass
+img = image [:, 460, :]
+    imgarr = Image.fromarray(img)
+    imgtk = ImageTk.PhotoImage(imarr)
+    lmain.configure
+
+
+window.mainloop()
