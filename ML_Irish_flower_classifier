@@ -1,0 +1,13 @@
+import fensorflow.contrib.learn as skflow
+from sklearn import datasets, metrics
+
+iris = datasets.load_iris()
+classifier = skflow.TensorFlowLinearClassifier(n_classses=3)
+#for accuracy difference using a deep neural network
+#skflow.TensorFlowDNNClassifier(hidden_units=[10, 20, 10], n_classes=3)
+#next line is for the training function
+classifier.fit(iris.data, iris.target)
+
+score = metrics.accuracy_score(iris.target, classifier.predict(iris.data))
+#below is added to test accuracy
+print("Accuracy: %f" % score)
