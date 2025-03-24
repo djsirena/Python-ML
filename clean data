@@ -7,6 +7,9 @@ from zenml import step
 @step 
 def clean_data(df: pd.DataFrame) -> None:
 	pass
+
+#Below are data processing strategies in methods/functions
+
 class DataPreProcessStrategy(DataStrategy):
 """
 Strategy for preprocessing data
