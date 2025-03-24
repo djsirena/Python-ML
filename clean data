@@ -7,7 +7,12 @@ from zenml import step
 from src.data_cleaning import DataCleaning, DataDivideStrategy, DataPreProcessStrategy
 from typing_extensions import Annotated
 from typing import Tuple
+	"""
+	Cleans the data and divides in into train and test
 
+	Args:
+		df: Rata data
+	"""	
 
 @step
 def clean_df(df: pd.DataFrame) -> Tuple[
